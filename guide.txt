@@ -1,0 +1,12 @@
+RawFetch.java - 
+javac -cp gson-2.11.0.jar RawFetch.java
+java -cp ".;gson-2.11.0.jar" RawFetch
+
+WeatherApp.java -
+javac -cp gson-2.11.0.jar WeatherApp.java
+java -cp ".;gson-2.11.0.jar" WeatherApp
+
+WeatherApp.java -
+javac -cp gson-2.11.0.jar WeatherLookup.java
+java -cp ".;gson-2.11.0.jar" WeatherLookup
+
