@@ -1,11 +1,13 @@
-
-import java.net.URI;
-import java.net.URL;
-import java.net.HttpURLConnection;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 
 public class RawFetch {
 
@@ -40,14 +42,27 @@ public class RawFetch {
 
             if (stream != null) {
 
+                StringBuilder body = new StringBuilder();
+
                 try (BufferedReader reader =
                      new BufferedReader(new InputStreamReader(stream))) {
 
                     String line;
 
                     while ((line = reader.readLine()) != null) {
-                        System.out.println(line);
+                        body.append(line);
                     }
+                }
+
+                // Print the JSON with line breaks and indentation
+                try {
+                    System.out.println(
+                        new GsonBuilder().setPrettyPrinting().create()
+                            .toJson(JsonParser.parseString(body.toString()))
+                    );
+                } catch (RuntimeException e) {
+                    // Not valid JSON: print the raw text instead
+                    System.out.println(body);
                 }
             }
 
